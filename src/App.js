@@ -1,4 +1,3 @@
-import "./App.css";
 import DateCounter from "./DateCounter";
 
 function App() {
