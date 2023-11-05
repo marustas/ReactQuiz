@@ -44,6 +44,13 @@ function reducer(state, action) {
         status: "finish",
         highScore: highScore < points ? points : highScore,
       };
+    case "restart":
+      return {
+        ...initialState,
+        highScore: highScore,
+        questions: questions,
+        status: "ready",
+      };
     default:
       throw new Error("Unknown type");
   }
@@ -94,6 +101,7 @@ function App() {
         )}
         {status === "finish" && (
           <FinishScreen
+            dispatch={dispatch}
             highScore={highScore}
             points={points}
             maxPoints={maxPoints}
