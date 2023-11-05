@@ -11,6 +11,8 @@ function reducer(state, action) {
   switch (type) {
     case "dataReceived":
       return { ...state, question: payload, status: "ready" };
+    case "dataFailed":
+      return { ...state, status: "error" };
 
     default:
       throw new Error("Unknown type");
@@ -22,7 +24,7 @@ function App() {
     fetch("http://localhost:8000/questions")
       .then((response) => response.json())
       .then((data) => dispath({ type: "dataReceived", payload: data }))
-      .catch((error) => console.log("Error"));
+      .catch((error) => dispath({ type: "dataFailed" }));
   }, []);
   return (
     <div className="app">
