@@ -6,6 +6,7 @@ import Error from "./Error";
 import StartScreen from "./StartScreen";
 import Question from "./Question";
 import NextButton from "./NextButton";
+import Progress from "./Progress";
 
 const initialState = {
   questions: [],
@@ -40,8 +41,10 @@ function reducer(state, action) {
   }
 }
 
+const TOTAL = 280;
+
 function App() {
-  const [{ questions, status, index, answer }, dispatch] = useReducer(
+  const [{ questions, status, index, answer, points }, dispatch] = useReducer(
     reducer,
     initialState
   );
@@ -53,6 +56,7 @@ function App() {
       .catch((error) => dispatch({ type: "dataFailed" }));
   }, []);
 
+  const numQuestions = questions.length;
   return (
     <div className="app">
       <Header />
@@ -60,10 +64,16 @@ function App() {
         {status === "loading" && <Loader />}
         {status === "error" && <Error />}
         {status === "ready" && (
-          <StartScreen dispatch={dispatch} numQuestions={questions.length} />
+          <StartScreen dispatch={dispatch} numQuestions={numQuestions} />
         )}
         {status === "active" && (
           <>
+            <Progress
+              total={TOTAL}
+              index={index}
+              numQuestions={numQuestions}
+              points={points}
+            />
             <Question
               dispatch={dispatch}
               question={questions[index]}
