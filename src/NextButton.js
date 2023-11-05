@@ -1,12 +1,12 @@
-const NextButton = ({ dispatch, answer }) => {
+const NextButton = ({ dispatch, answer, index }) => {
   return answer === null ? null : (
     <button
       className="btn btn-ui"
       onClick={() => {
-        dispatch({ type: "next" });
+        index < 14 ? dispatch({ type: "next" }) : dispatch({ type: "finish" });
       }}
     >
-      Next
+      {index < 14 ? "Next" : "Finish"}
     </button>
   );
 };
