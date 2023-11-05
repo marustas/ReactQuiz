@@ -3,17 +3,13 @@ const FinishScreen = ({ points, maxPoints, highScore, dispatch }) => {
   let emoji;
   if (percentage === 100) {
     emoji = "🥇";
-  }
-  if (percentage >= 80 && percentage < 100) {
+  } else if (percentage >= 80 && percentage < 100) {
     emoji = "🎉";
-  }
-  if (percentage >= 50 && percentage < 80) {
+  } else if (percentage >= 50 && percentage < 80) {
     emoji = "🙂";
-  }
-  if (percentage > 0 && percentage < 50) {
+  } else if (percentage > 0 && percentage < 50) {
     emoji = "🤔";
-  }
-  if (percentage === 0) {
+  } else {
     emoji = "🤦‍♂️";
   }
 
