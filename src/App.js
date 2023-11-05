@@ -19,12 +19,12 @@ function reducer(state, action) {
   }
 }
 function App() {
-  const [state, dispath] = useReducer(reducer, initialState);
+  const [state, dispatch] = useReducer(reducer, initialState);
   useEffect(function () {
     fetch("http://localhost:8000/questions")
       .then((response) => response.json())
-      .then((data) => dispath({ type: "dataReceived", payload: data }))
-      .catch((error) => dispath({ type: "dataFailed" }));
+      .then((data) => dispatch({ type: "dataReceived", payload: data }))
+      .catch((error) => dispatch({ type: "dataFailed" }));
   }, []);
   return (
     <div className="app">
