@@ -72,6 +72,7 @@ function App() {
         {status === "active" && (
           <>
             <Progress
+              answer={answer}
               maxPoints={maxPoints}
               index={index}
               numQuestions={numQuestions}

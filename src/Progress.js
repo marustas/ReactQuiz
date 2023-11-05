@@ -1,6 +1,8 @@
-const Progress = ({ index, numQuestions, points, maxPoints }) => {
+const Progress = ({ index, numQuestions, points, maxPoints, answer }) => {
   return (
     <header className="progress">
+      {/*Number(a != null) results in 1 if true and 0 if false */}
+      <progress max={numQuestions} value={index + Number(answer !== null)} />
       <p>
         Question <strong>{index + 1}</strong> / {numQuestions}
       </p>
