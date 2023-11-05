@@ -11,10 +11,13 @@ const initialState = {
   status: "loading",
   index: 0,
   answer: null,
+  points: 0,
 };
 
 function reducer(state, action) {
   const { type, payload } = action;
+  const { index, questions, points } = state;
+
   switch (type) {
     case "dataReceived":
       return { ...state, questions: payload, status: "ready" };
@@ -23,7 +26,12 @@ function reducer(state, action) {
     case "start":
       return { ...state, status: "active" };
     case "answer":
-      return { ...state, answer: payload };
+      const { correctOption, questionPoints } = questions.at(index);
+      return {
+        ...state,
+        answer: payload,
+        points: payload === correctOption ? points + questionPoints : points,
+      };
     default:
       throw new Error("Unknown type");
   }
