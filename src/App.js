@@ -15,11 +15,12 @@ const initialState = {
   index: 0,
   answer: null,
   points: 0,
+  highScore: 0,
 };
 
 function reducer(state, action) {
   const { type, payload } = action;
-  const { index, questions, points } = state;
+  const { index, questions, points, highScore } = state;
 
   switch (type) {
     case "dataReceived":
@@ -38,17 +39,19 @@ function reducer(state, action) {
     case "next":
       return { ...state, index: index + 1, answer: null };
     case "finish":
-      return { ...state, status: "finish" };
+      return {
+        ...state,
+        status: "finish",
+        highScore: highScore < points ? points : highScore,
+      };
     default:
       throw new Error("Unknown type");
   }
 }
 
 function App() {
-  const [{ questions, status, index, answer, points }, dispatch] = useReducer(
-    reducer,
-    initialState
-  );
+  const [{ questions, status, index, answer, points, highScore }, dispatch] =
+    useReducer(reducer, initialState);
 
   const numQuestions = questions.length;
   const maxPoints = questions.reduce(
@@ -90,7 +93,11 @@ function App() {
           </>
         )}
         {status === "finish" && (
-          <FinishScreen points={points} maxPoints={maxPoints} />
+          <FinishScreen
+            highScore={highScore}
+            points={points}
+            maxPoints={maxPoints}
+          />
         )}
       </Main>
     </div>

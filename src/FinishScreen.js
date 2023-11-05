@@ -1,4 +1,4 @@
-const FinishScreen = ({ points, maxPoints }) => {
+const FinishScreen = ({ points, maxPoints, highScore }) => {
   const percentage = Math.ceil((100 * points) / maxPoints);
   let emoji;
   switch (percentage) {
@@ -19,10 +19,15 @@ const FinishScreen = ({ points, maxPoints }) => {
       break;
   }
   return (
-    <p className="result">
-      {emoji} You scored <strong>{points}</strong> out of {maxPoints} (
-      {percentage} %)
-    </p>
+    <>
+      <p className="result">
+        {" "}
+        {emoji}
+        You scored <strong> {points} </strong> out of {maxPoints} ( {percentage}{" "}
+        % ){" "}
+      </p>{" "}
+      <p className="highscore"> Highscore: {highScore} </p>{" "}
+    </>
   );
 };
 
