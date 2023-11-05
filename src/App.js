@@ -41,12 +41,16 @@ function reducer(state, action) {
   }
 }
 
-const TOTAL = 280;
-
 function App() {
   const [{ questions, status, index, answer, points }, dispatch] = useReducer(
     reducer,
     initialState
+  );
+
+  const numQuestions = questions.length;
+  const maxPoints = questions.reduce(
+    (prev, cur) => prev + cur.questionPoints,
+    0
   );
 
   useEffect(function () {
@@ -56,7 +60,6 @@ function App() {
       .catch((error) => dispatch({ type: "dataFailed" }));
   }, []);
 
-  const numQuestions = questions.length;
   return (
     <div className="app">
       <Header />
@@ -69,7 +72,7 @@ function App() {
         {status === "active" && (
           <>
             <Progress
-              total={TOTAL}
+              maxPoints={maxPoints}
               index={index}
               numQuestions={numQuestions}
               points={points}
