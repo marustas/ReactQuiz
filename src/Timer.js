@@ -9,6 +9,13 @@ const Timer = ({ dispatch, remainingTime }) => {
     },
     [dispatch]
   );
-  return <div className="timer">{remainingTime}</div>;
+  const minutes = Math.floor(remainingTime / 60);
+  const seconds = remainingTime % 60;
+  return (
+    <div className="timer">
+      {minutes < 10 ? `0${minutes}` : minutes} :{" "}
+      {seconds < 10 ? `0${seconds}` : seconds}
+    </div>
+  );
 };
 export default Timer;
