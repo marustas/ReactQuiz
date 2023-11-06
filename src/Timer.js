@@ -1,8 +1,14 @@
 import { useEffect } from "react";
-const Timer = () => {
-  useEffect(function () {
-    setInterval(function () {}, 1000);
-  }, []);
-  return <div className="timer">23:19</div>;
+const Timer = ({ dispatch, remainingTime }) => {
+  useEffect(
+    function () {
+      const id = setInterval(function () {
+        dispatch({ type: "tick" });
+      }, 1000);
+      return () => clearInterval(id);
+    },
+    [dispatch]
+  );
+  return <div className="timer">{remainingTime}</div>;
 };
 export default Timer;

@@ -18,12 +18,12 @@ const initialState = {
   answer: null,
   points: 0,
   highScore: 0,
-  remainingTime: 300,
+  remainingTime: 10,
 };
 
 function reducer(state, action) {
   const { type, payload } = action;
-  const { index, questions, points, highScore, remainingTime } = state;
+  const { index, questions, points, highScore, remainingTime, status } = state;
 
   switch (type) {
     case "dataReceived":
@@ -55,15 +55,21 @@ function reducer(state, action) {
         status: "ready",
       };
     case "tick":
-      return { ...state, remainingTime: remainingTime - 1 };
+      return {
+        ...state,
+        remainingTime: remainingTime - 1,
+        status: remainingTime === 0 ? "finish" : status,
+      };
     default:
       throw new Error("Unknown type");
   }
 }
 
 function App() {
-  const [{ questions, status, index, answer, points, highScore }, dispatch] =
-    useReducer(reducer, initialState);
+  const [
+    { questions, status, index, answer, points, highScore, remainingTime },
+    dispatch,
+  ] = useReducer(reducer, initialState);
 
   const numQuestions = questions.length;
   const maxPoints = questions.reduce(
@@ -102,7 +108,7 @@ function App() {
               answer={answer}
             />
             <Footer>
-              <Timer />
+              <Timer remainingTime={remainingTime} dispatch={dispatch} />
               <NextButton index={index} answer={answer} dispatch={dispatch} />
             </Footer>
           </>
