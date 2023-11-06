@@ -8,6 +8,8 @@ import Question from "./Question";
 import NextButton from "./NextButton";
 import Progress from "./Progress";
 import FinishScreen from "./FinishScreen";
+import Timer from "./Timer";
+import Footer from "./Footer";
 
 const initialState = {
   questions: [],
@@ -16,11 +18,12 @@ const initialState = {
   answer: null,
   points: 0,
   highScore: 0,
+  remainingTime: 300,
 };
 
 function reducer(state, action) {
   const { type, payload } = action;
-  const { index, questions, points, highScore } = state;
+  const { index, questions, points, highScore, remainingTime } = state;
 
   switch (type) {
     case "dataReceived":
@@ -51,6 +54,8 @@ function reducer(state, action) {
         questions: questions,
         status: "ready",
       };
+    case "tick":
+      return { ...state, remainingTime: remainingTime - 1 };
     default:
       throw new Error("Unknown type");
   }
@@ -96,7 +101,10 @@ function App() {
               question={questions[index]}
               answer={answer}
             />
-            <NextButton index={index} answer={answer} dispatch={dispatch} />
+            <Footer>
+              <Timer />
+              <NextButton index={index} answer={answer} dispatch={dispatch} />
+            </Footer>
           </>
         )}
         {status === "finish" && (
