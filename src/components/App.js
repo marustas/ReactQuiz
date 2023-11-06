@@ -92,11 +92,11 @@ function App() {
     <div className="app">
       <Header />
       <Main>
-        {status === "loading" && <Loader />}
-        {status === "error" && <Error />}
+        {" "}
+        {status === "loading" && <Loader />} {status === "error" && <Error />}{" "}
         {status === "ready" && (
           <StartScreen dispatch={dispatch} numQuestions={numQuestions} />
-        )}
+        )}{" "}
         {status === "active" && (
           <>
             <Progress
@@ -105,18 +105,18 @@ function App() {
               index={index}
               numQuestions={numQuestions}
               points={points}
-            />
+            />{" "}
             <Question
               dispatch={dispatch}
               question={questions[index]}
               answer={answer}
-            />
+            />{" "}
             <Footer>
-              <Timer remainingTime={remainingTime} dispatch={dispatch} />
-              <NextButton index={index} answer={answer} dispatch={dispatch} />
-            </Footer>
+              <Timer remainingTime={remainingTime} dispatch={dispatch} />{" "}
+              <NextButton index={index} answer={answer} dispatch={dispatch} />{" "}
+            </Footer>{" "}
           </>
-        )}
+        )}{" "}
         {status === "finish" && (
           <FinishScreen
             dispatch={dispatch}
@@ -124,8 +124,8 @@ function App() {
             points={points}
             maxPoints={maxPoints}
           />
-        )}
-      </Main>
+        )}{" "}
+      </Main>{" "}
     </div>
   );
 }
