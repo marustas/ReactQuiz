@@ -1,6 +1,10 @@
-const Options = ({ answer, dispatch, question }) => {
-  const isAnswered = answer !== null;
+import { useQuiz } from "../context/QuizContext";
+
+const Options = () => {
+  const { answer, dispatch, questions, index } = useQuiz();
+  const question = questions.at(index);
   const { options, correctOption } = question;
+  const isAnswered = answer !== null;
   return (
     <div className="options">
       {options.map((option, index) => (

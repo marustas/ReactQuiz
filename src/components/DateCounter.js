@@ -18,7 +18,7 @@ const reducer = (state, action) => {
       throw new Error("Unknown action");
   }
 };
-function DateCounter() {
+const DateCounter = () => {
   const inititalState = { count: 0, step: 1 };
   const [state, dispatch] = useReducer(reducer, inititalState);
   const { count, step } = state;
@@ -72,5 +72,5 @@ function DateCounter() {
       </div>
     </div>
   );
-}
+};
 export default DateCounter;
